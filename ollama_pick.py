@@ -30,12 +30,16 @@ def sel_model(listing):
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("--override", help="Custom override for path to ollama models")
+parser.add_argument("--override", help="Your override for path to ollama models")
 
 args = parser.parse_args()
 
 if args.override:
-    ollama_path = args.override
+    if os.path.exists(args.override):
+        ollama_path = args.override
+    else:
+        x = input("Bad Path")
+        sys.exit()
 
 dir_list = os.listdir(ollama_path)
 
