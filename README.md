@@ -1,7 +1,8 @@
 # ollama_pick
 an aid to the Linux desktop launcher for locally stored ollama models
 
-Prerequisite: 
+Prerequisite:
+
     ollama has been installed and one or many models have been created locally using the **ollama run _model_** command.
 
     gnome terminal is installed
