@@ -11,6 +11,7 @@ python 3 is installed
 
 ollama will run in a normal terminal window when ran by hand.
 
+
 The 'ollama_pick' module was compiled for a Linux system where *gnome terminal* is available.
 
 Download the *ollama pick* module and place it into the bin directory found in your Linux Home directory (i.e. ~/bin directory)
