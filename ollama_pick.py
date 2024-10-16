@@ -4,7 +4,7 @@ import sys
 import argparse
 
 ## Change this next line to reflect your default llama model supported by ollama
-ollama_default = "codellama"
+ollama_default = "mistral"
 command = "ollama run"
 ollama_path = "/usr/share/ollama/.ollama/models/manifests/registry.ollama.ai/library"
 ollama_model = ""
@@ -38,7 +38,7 @@ if args.override:
     if os.path.exists(args.override):
         ollama_path = args.override
     else:
-        x = input("Bad Path")
+        x = input("Bad Path. Press ENTER to terminate.")
         sys.exit()
 
 dir_list = os.listdir(ollama_path)
@@ -55,6 +55,7 @@ try:
     
 except Exception as es:
     print(f"Bad selection. Error code is =-> {es}")
+    x = input("Press ENTER to terminate.")
     sys.exit()
 
 command = "gnome-terminal -e 'bash -c \"ollama run "+ollama_model+"\"' 2>/dev/null "
