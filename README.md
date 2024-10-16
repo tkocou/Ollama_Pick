@@ -18,3 +18,5 @@ The 'ollama_pick' module was compiled for a Linux system where *gnome terminal* 
 Download the *ollama pick* module and place it into the bin directory found in your Linux Home directory (i.e. ~/bin directory) and insure the executable attribute has been set.
 
 Create a desktop launcher and use the **\/home/<home directory\>/bin/ollama_pick** as the executable.
+
+For those who store their ollama models in a different location than the default, add the --override option and the absolute path in the launcher.
