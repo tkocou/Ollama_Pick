@@ -15,4 +15,4 @@ The 'ollama_pick' module was compiled for a Linux system where *gnome terminal* 
 
 Download the *ollama pick* module and place it into the bin directory found in your Linux Home directory (i.e. ~/bin directory)
 
-Create a desktop launcher and use the **<home directory>/bin/ollama_pick** as the executable.
+Create a desktop launcher and use the **\<home directory\>/bin/ollama_pick** as the executable.
