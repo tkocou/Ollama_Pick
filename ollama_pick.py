@@ -5,7 +5,7 @@ import argparse
 
 ## Change this next line to reflect your default llama model supported by ollama
 ollama_default = "mistral"
-command = "ollama run"
+command = ""
 ollama_path = "/usr/share/ollama/.ollama/models/manifests/registry.ollama.ai/library"
 ollama_model = ""
 
