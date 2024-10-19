@@ -3,7 +3,7 @@ an aid to the Linux desktop launcher for locally stored ollama models
 
 ## Prerequisite:
 
-ollama has been installed and one or many models have been created locally using the **ollama run** *model* command.
+ollama has been installed and one or many models have been created locally using the **ollama run (or pull)** *model* command.
 
 gnome terminal is installed
 
