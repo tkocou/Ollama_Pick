@@ -1,4 +1,8 @@
 #! /bin/python 
+
+## Released under the GPL3 license. Please give credit when making your own version / derivitive
+## Copyright 2024 Thomas Kocourek
+
 import os
 import sys
 import argparse
