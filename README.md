@@ -1,5 +1,5 @@
 ## ollama_pick
-an aid to the Linux desktop launcher for locally stored ollama models
+an app to augment the ability of the native Linux desktop launcher for selecting a locally stored ollama models before launching ollama.
 
 ## Prerequisite:
 
