@@ -13,6 +13,25 @@ command = ""
 ollama_path = "/usr/share/ollama/.ollama/models/manifests/registry.ollama.ai/library"
 ollama_model = ""
 
+def extract_list():
+    command = "ollama list > temp.txt"
+    os.system(command)
+
+    with open("temp.txt") as fd:
+        result = fd.readlines()
+    os.remove("temp.txt")
+
+    index = 0
+    name_list = []
+    for element in result:
+        if index == 0:
+            index += 1
+            continue
+        temp_list = element.split(' ')
+        name_list.append(temp_list[0])
+
+    return name_list
+
 def sel_model(listing):
     index = 0
     sel_default = ""
@@ -31,6 +50,7 @@ def sel_model(listing):
     
     return int(selection)
 
+## start of main program
 
 parser = argparse.ArgumentParser()
 
@@ -45,7 +65,8 @@ if args.override:
         x = input("Bad Path. Press ENTER to terminate.")
         sys.exit()
 
-dir_list = os.listdir(ollama_path)
+#dir_list = os.listdir(ollama_path)
+dir_list = extract_list()
 
 try:
     selection = sel_model(dir_list)
