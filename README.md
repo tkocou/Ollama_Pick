@@ -19,6 +19,8 @@ Download the *ollama pick* module and place it into the bin directory found in y
 
 Create a desktop launcher and use the **\/home/<home directory\>/bin/ollama_pick** as the executable.
 
-For those who store their ollama models in a different location than the default, add the --override option and the absolute path in the launcher.
+To override the built-in model, use the **--default=<model>** option
+
+For those who store their ollama models in a different location than the default, add the **--override=<path>** option and the absolute path in the launcher.
 
 ## Ollama_Pick has been upgraded. Read the Changelog in the source code.
