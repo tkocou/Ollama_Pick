@@ -2,6 +2,16 @@
 
 ## Released under the GPL3 license. Please give credit when making your own version / derivitive
 ## Copyright 2024 Thomas Kocourek
+## Version 1.0, 06Nov2024
+##
+## Changelog 
+##
+## 06Nov2024
+## Modified listing method. Older method could not differenciate between alternative versions of a stored model
+## Example: a 3b version vs a 7b version of a model
+##
+## 07nov2024
+## Added more error trapping. Touched up error reporting messages to make more sense.
 
 import os
 import sys
@@ -10,12 +20,17 @@ import argparse
 ## Change this next line to reflect your default llama model supported by ollama
 ollama_default = "mistral"
 command = ""
-ollama_path = "/usr/share/ollama/.ollama/models/manifests/registry.ollama.ai/library"
+# ollama_path = "/usr/share/ollama/.ollama/models/manifests/registry.ollama.ai/library"
 ollama_model = ""
 
 def extract_list():
-    command = "ollama list > temp.txt"
-    os.system(command)
+    try: ## in case ollama is not installed properly
+        command = "ollama list > temp.txt"
+        os.system(command)
+    except Exception as es:
+        print(f"Has ollama been properly installed? Error code is =-> {es}")
+        x = input("Press ENTER to terminate.")
+        sys.exit()
 
     with open("temp.txt") as fd:
         result = fd.readlines()
@@ -62,10 +77,10 @@ if args.override:
     if os.path.exists(args.override):
         ollama_path = args.override
     else:
-        x = input("Bad Path. Press ENTER to terminate.")
+        x = input("Bad Path for override. Press ENTER to terminate.")
         sys.exit()
 
-#dir_list = os.listdir(ollama_path)
+# dir_list = os.listdir(ollama_path)
 dir_list = extract_list()
 
 try:
@@ -82,6 +97,11 @@ except Exception as es:
     print(f"Bad selection. Error code is =-> {es}")
     x = input("Press ENTER to terminate.")
     sys.exit()
-
-command = "gnome-terminal -e 'bash -c \"ollama run "+ollama_model+"\"' 2>/dev/null "
-os.system(command)
+    
+try:
+    command = "gnome-terminal -e 'bash -c \"ollama run "+ollama_model+"\"' 2>/dev/null "
+    os.system(command)
+except Exception as es:
+    print(f"gnome-terminal needs to be checked. Error code is =-> {es}")
+    x = input("Press ENTER to terminate.")
+    sys.exit()
