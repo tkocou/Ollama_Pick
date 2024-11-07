@@ -12,6 +12,7 @@
 ##
 ## 07nov2024
 ## Added more error trapping. Touched up error reporting messages to make more sense.
+## Added the ability to override the default model via the launcher command
 
 import os
 import sys
@@ -50,6 +51,7 @@ def extract_list():
 def sel_model(listing):
     index = 0
     sel_default = ""
+    ## check for a match
     for model in listing:
         if model == ollama_default:
             print("*"+str(index)+" "+model)
@@ -70,6 +72,7 @@ def sel_model(listing):
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--override", help="Your override for path to ollama models")
+parser.add_argument("--default", help="Override default model (include the model modifiers, example: codegemma:7b)")
 
 args = parser.parse_args()
 
@@ -79,18 +82,28 @@ if args.override:
     else:
         x = input("Bad Path for override. Press ENTER to terminate.")
         sys.exit()
+        
+if args.default:
+    ollama_default = args.default
 
 # dir_list = os.listdir(ollama_path)
 dir_list = extract_list()
 
+## if the ollama_default only specifies the model name, append "latest"
+default_list = ollama_default.split(':')
+if len(default_list) == 1:
+    default_list.append("latest")
+    ollama_default = default_list[0]+':'+default_list[1]
+
 try:
     selection = sel_model(dir_list)
     if selection < 0:
-        print("Negative index. Using default selection.")
+        #print("Negative index. Using default selection.")
         selection = ""
+    # Use the default model
     if selection == "":
         ollama_model = ollama_default
-    else:
+    else: ## choose the selected model
         ollama_model = dir_list[int(selection)]
     
 except Exception as es:
