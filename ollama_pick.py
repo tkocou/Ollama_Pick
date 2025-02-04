@@ -80,11 +80,9 @@ def get_default(input_filename):
     ## If the file is empty or missing, create a new one.
     default_val = ""
     try:
-        print("trying")
         with open(input_filename,"r") as f:
             default_val = f.read()
     except Exception:
-        print("exception")
         default_val = "mistral\n"
         with open(input_filename, 'w') as f:
             f.write(default_val)
@@ -108,7 +106,6 @@ if args.override:
         sys.exit()
         
 if args.default:
-    print("Setting default")
     ollama_default = args.default
     with open(default_file, 'w') as f:
             f.write(ollama_default)
