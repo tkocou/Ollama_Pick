@@ -19,10 +19,13 @@ import sys
 import argparse
 
 ## Change this next line to reflect your default llama model supported by ollama
-ollama_default = "mistral"
+## see the get_default() function
+##ollama_default = "mistral"
 command = ""
 # ollama_path = "/usr/share/ollama/.ollama/models/manifests/registry.ollama.ai/library"
 ollama_model = ""
+home_dir = os.path.expanduser('~')
+default_file = home_dir + "/.ollama_pick.txt"
 
 def extract_list():
     try: ## in case ollama is not installed properly
@@ -67,7 +70,24 @@ def sel_model(listing):
     
     return int(selection)
 
+def get_default(input_filename):
+    ## The idea is to check for a 'default' model via a text file
+    ## If the file exist, assign the default model
+    ## If the file is empty or missing, create a new one.
+    default_val = ""
+    try:
+        print("trying")
+        with open(input_filename,"r") as f:
+            default_val = f.read()
+    except Exception:
+        print("exception")
+        default_val = "mistral\n"
+        with open(input_filename, 'w') as f:
+            f.write(default_val)
+    return default_val
+
 ## start of main program
+ollama_default = get_default(default_file)
 
 parser = argparse.ArgumentParser()
 
@@ -84,7 +104,10 @@ if args.override:
         sys.exit()
         
 if args.default:
+    print("Setting default")
     ollama_default = args.default
+    with open(default_file, 'w') as f:
+            f.write(ollama_default)
 
 # dir_list = os.listdir(ollama_path)
 dir_list = extract_list()
