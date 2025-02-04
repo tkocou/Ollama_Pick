@@ -13,6 +13,9 @@
 ## 07nov2024
 ## Added more error trapping. Touched up error reporting messages to make more sense.
 ## Added the ability to override the default model via the launcher command
+##
+## 04Feb2025
+## Added the ability to save the default model ina hidden text file in the home directory
 
 import os
 import sys
