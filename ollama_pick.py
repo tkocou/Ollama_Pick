@@ -15,7 +15,7 @@
 ## Added the ability to override the default model via the launcher command
 ##
 ## 04Feb2025
-## Added the ability to save the default model ina hidden text file in the home directory
+## Added the ability to save the default model in a hidden text file in the home directory
 
 import os
 import sys
