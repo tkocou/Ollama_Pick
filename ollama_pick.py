@@ -18,7 +18,8 @@
 ## Added the ability to save the default model in a hidden text file in the home directory
 ##
 ## 15Jun2025
-## Added a check for the latest version of a model before running the model
+## Added a check for the latest version of a model before running the model.
+## Changed default to use the first model listed. ollama sorts list per latest pulled model
 ##
 
 import os
@@ -60,7 +61,6 @@ def extract_list():
 
 def sel_model(listing):
     index = 0
-    sel_default = ""
     ## check for a match
     for model in listing:
         if model == ollama_default:
@@ -72,8 +72,9 @@ def sel_model(listing):
         
     print("Current default is indicated by a '*'. Press ENTER to use the default model.")
     selection = input("Select model and press ENTER: ")
+    ## Automatically default to first model in list
     if selection == "":
-        selection = sel_default
+        selection = "0"
     
     return int(selection)
 
@@ -86,7 +87,7 @@ def get_default(input_filename):
         with open(input_filename,"r") as f:
             default_val = f.read()
     except Exception:
-        default_val = "mistral\n"
+        default_val = "mistral:latest"
         with open(input_filename, 'w') as f:
             f.write(default_val)
     return default_val
@@ -113,7 +114,7 @@ if args.default:
     with open(default_file, 'w') as f:
             f.write(ollama_default)
 
-# dir_list = os.listdir(ollama_path)
+## read in list of installed models for ollama
 dir_list = extract_list()
 
 ## if the ollama_default only specifies the model name, append "latest"
@@ -124,12 +125,11 @@ if len(default_list) == 1:
 
 try:
     selection = sel_model(dir_list)
+    print(selection)
     if selection < 0:
         #print("Negative index. Using default selection.")
         selection = ""
-    # Use the default model
-    if selection == "":
-        ollama_model = ollama_default
+    
     else: ## choose the selected model
         ollama_model = dir_list[int(selection)]
     
