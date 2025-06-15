@@ -136,7 +136,8 @@ except Exception as es:
     sys.exit()
     
 try:
-    command = "gnome-terminal -e 'bash -c \"ollama run "+ollama_model+"\"' 2>/dev/null "
+    ## Check for the latest model via 'pull' and then run the model
+    command = "gnome-terminal -e 'bash -c \"ollama pull "+ollama_model+"; ollama run "+ollama_model+"\"' 2>/dev/null "
     os.system(command)
 except Exception as es:
     print(f"gnome-terminal needs to be checked. Error code is =-> {es}")
