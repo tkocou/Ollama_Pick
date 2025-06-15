@@ -17,6 +17,9 @@
 ## 04Feb2025
 ## Added the ability to save the default model in a hidden text file in the home directory
 ##
+## 15Jun2025
+## Added a check for the latest version of a model before running the model
+##
 
 import os
 import sys
