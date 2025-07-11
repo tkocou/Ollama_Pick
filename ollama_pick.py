@@ -21,6 +21,9 @@
 ## Added a check for the latest version of a model before running the model.
 ## Changed default to use the first model listed. ollama sorts list per latest pulled model
 ##
+## 11jul2025
+## added script to check for Internet access before attempting a manifest pull
+##
 
 import os
 import sys
@@ -139,8 +142,10 @@ except Exception as es:
     sys.exit()
     
 try:
-    ## Check for the latest model via 'pull' and then run the model
-    command = "gnome-terminal -e 'bash -c \"ollama pull "+ollama_model+"; ollama run "+ollama_model+"\"' 2>/dev/null "
+    ## Check for Internet access and if good, pull model
+    command = "if ping -q -c 1 google.com >/dev/null 2>&1; then gnome-terminal -e 'bash -c \"ollama pull "+ollama_model+"\"' "
+    os.system(command)
+    command = "gnome-terminal -e 'bash -c \"ollama run "+ollama_model+"\"' 2>/dev/null "
     os.system(command)
 except Exception as es:
     print(f"gnome-terminal needs to be checked. Error code is =-> {es}")
