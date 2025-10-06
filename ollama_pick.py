@@ -24,6 +24,9 @@
 ## 11jul2025
 ## added script to check for Internet access before attempting a manifest pull
 ##
+## 05oct2025
+## fixed a logic error in the check for latest version
+##
 
 import os
 import sys
@@ -143,7 +146,7 @@ except Exception as es:
     
 try:
     ## Check for Internet access and if good, pull model
-    command = "if ping -q -c 1 google.com >/dev/null 2>&1; then gnome-terminal -e 'bash -c \"ollama pull "+ollama_model+"\"' "
+    command = "if ping -q -c 1 google.com >/dev/null 2>&1; then gnome-terminal -e 'bash -c \"ollama pull "+ollama_model+"\"' ; fi"
     os.system(command)
     command = "gnome-terminal -e 'bash -c \"ollama run "+ollama_model+"\"' 2>/dev/null "
     os.system(command)
