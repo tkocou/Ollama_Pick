@@ -31,6 +31,8 @@
 import os
 import sys
 import argparse
+import subprocess
+import time
 
 ## Change this next line to reflect your default llama model supported by ollama
 ## see the get_default() function
@@ -146,10 +148,16 @@ except Exception as es:
     
 try:
     ## Check for Internet access and if good, pull model
-    command = "if ping -q -c 1 google.com >/dev/null 2>&1; then gnome-terminal -e 'bash -c \"ollama pull "+ollama_model+"\"' ; fi"
-    os.system(command)
+    command = "if ping -q -c 1 google.com >/dev/null 2>&1; then gnome-terminal -e 'bash -c \"ollama pull "+ollama_model+" &&  sleep 1\"'; fi"
+    #os.system(command)
+
+    ## force a wait until this command finishes
+    subprocess.run(command, shell=True)
+
+    ## actually run the ollama model
     command = "gnome-terminal -e 'bash -c \"ollama run "+ollama_model+"\"' 2>/dev/null "
     os.system(command)
+
 except Exception as es:
     print(f"gnome-terminal needs to be checked. Error code is =-> {es}")
     x = input("Press ENTER to terminate.")
