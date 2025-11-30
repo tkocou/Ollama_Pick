@@ -27,6 +27,9 @@
 ## 05oct2025
 ## fixed a logic error in the check for latest version
 ##
+## 30nov2025
+## Fixed terminal window display. First window flashed by too quick. Introduced a small delay.
+##
 
 import os
 import sys
